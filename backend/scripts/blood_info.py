@@ -5,11 +5,15 @@ import requests
 
 try:
     from pdfminer.high_level import extract_text
+    PDFMINER_AVAILABLE = True
 except Exception as e:
-    print(json.dumps({"error": "Python package missing: install pdfminer.six and requests", "raw_output": str(e)}))
-    sys.exit(1)
+    PDFMINER_AVAILABLE = False
+    print(f"Warning: pdfminer.six not available: {e}")
 
 def analyze_labs(payload: dict):
+    if not PDFMINER_AVAILABLE:
+        return {"error": "PDF analysis component is not available on the server (missing pdfminer.six)"}
+    
     api_key = os.environ.get("NVIDIA_API_KEY")
     if not api_key:
         return {"error": "NVIDIA_API_KEY not configured"}
