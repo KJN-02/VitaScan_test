@@ -5,7 +5,7 @@ This project is structured as a monorepo with a separate frontend and backend fo
 ## Project Structure
 
 - `frontend/`: Next.js application (intended for deployment on Vercel).
-- `backend/`: FastAPI Python server (intended for deployment on Render).
+- `backend/`: FastAPI Python server (deployed on Render at `https://vitascan-test.onrender.com`).
 
 ## Deployment
 
@@ -23,8 +23,8 @@ This project is structured as a monorepo with a separate frontend and backend fo
 1. Create a new Project on Vercel.
 2. Connect your repository.
 3. Set the **Root Directory** to `frontend`.
-4. Add environment variables:
-   - `BACKEND_URL`: The URL of your deployed backend on Render.
+4. Add environment variables in the Vercel Dashboard:
+   - `BACKEND_URL`: Your Render service URL (e.g., `https://vitascan-test.onrender.com`). **Crucial for production.**
    - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL.
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key.
    - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key.
