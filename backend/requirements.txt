@@ -1,0 +1,14 @@
+python-dotenv
+numpy
+pandas
+tensorflow
+pillow
+scikit-learn
+google-generativeai
+pdfminer.six
+torch
+torchvision
+fastapi
+uvicorn
+python-multipart
+requests

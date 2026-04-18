@@ -1,0 +1,32 @@
+# Root-level dependencies (leftovers from before restructuring)
+node_modules/
+.next/
+venv/
+.env.local
+
+# Frontend dependencies
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/build
+frontend/next-env.d.ts
+frontend/*.tsbuildinfo
+
+# Backend dependencies
+backend/venv
+backend/__pycache__
+backend/scripts/__pycache__
+backend/scripts/diseaseandsymptoms.csv
+backend/scripts/xray_dataset
+
+# Env files
+.env*
+frontend/.env*
+backend/.env*
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
