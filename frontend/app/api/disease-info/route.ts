@@ -4,6 +4,7 @@ const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000"
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("Calling backend URL:", `${BACKEND_URL}/disease-info`)
     const body = await request.json()
     const { disease } = body
 
