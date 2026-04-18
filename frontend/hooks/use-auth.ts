@@ -165,23 +165,34 @@ export const useAuth = create<AuthState>((set, get) => ({
 }))
 
 // Initialize auth state
-supabase.auth.onAuthStateChange(async (event, session) => {
-  const { loadUserData } = useAuth.getState()
+if (supabase) {
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    const { loadUserData } = useAuth.getState()
 
-  if (session?.user) {
-    useAuth.setState({ user: session.user })
-    await loadUserData()
-  } else {
-    useAuth.setState({ user: null, profile: null, scans: [], loading: false })
+    if (session?.user) {
+      useAuth.setState({ user: session.user })
+      await loadUserData()
+    } else {
+      useAuth.setState({ user: null, profile: null, scans: [], loading: false })
+    }
+  })
+
+  // Load initial session
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session?.user) {
+      useAuth.setState({ user: session.user })
+      useAuth.getState().loadUserData()
+    } else {
+      useAuth.setState({ loading: false })
+    }
+  })
+} else {
+  // Handle case where supabase is not initialized (e.g. during build)
+  if (typeof window !== "undefined") {
+    console.warn("Supabase client not initialized. Check environment variables.")
   }
-})
-
-// Load initial session
-supabase.auth.getSession().then(({ data: { session } }) => {
-  if (session?.user) {
-    useAuth.setState({ user: session.user })
-    useAuth.getState().loadUserData()
-  } else {
+  // Still need to stop the loading state
+  setTimeout(() => {
     useAuth.setState({ loading: false })
-  }
-})
+  }, 0)
+}
